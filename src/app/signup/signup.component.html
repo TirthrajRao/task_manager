@@ -1,37 +1,21 @@
-<div class="container mt-6">
-	<div class="card panels-card">
-		<div class="container">
-			<div class="row login_form">
-				<h4 class="card-header-title text-center">
-					<span class="icon-login"></span> Sign Up
-				</h4>
-				<div class="card-body box pt-1">
-					<form [formGroup]="signupForm">
-						<div class="row">
-							<div class="col-11">
-								<div class="md-form">
-									<label for="form2">Email</label>
-									<input mdbInput type="text" id="form2" autocomplete= 'false | random-string'  class="form-control" formControlName="email" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-11">
-								<div class="md-form">
-									<label for="form2">Password</label> 
-									<input mdbInput type="password" autocomplete="new-password" id="form2" class="form-control" formControlName="password">
-								</div>
-							</div>
-						</div>
-						<div class="md-form">
-							<button class="btn btn-default" mdbBtn color="primary" (click)="signUp(signupForm.value)" mdbWavesEffect style="background-color: #3998c5; color: white; border: none; margin-top: 15px;margin-left: 160px;">Sign Up</button>
-						</div>
-					</form>
-				</div>
-			</div>
+<div class="background-image">
+	<img src="../assets/backgroundImage.jpg">
+	<div class="content">
+		<div class="form_inputs" [formGroup]="signupForm">
+			<h2 mat-header style="color: #000; text-align: center;">SignUp</h2>
+			<mat-icon color="primary" style="margin-right: 5px;">person</mat-icon>
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Username" value="" type="text"  id="form2" autocomplete= 'false | random-string'  class="form-control" formControlName="email">
+			</mat-form-field><br>
+			<mat-icon color="primary" style="margin-right: 5px;">lock</mat-icon>
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Password" value="" type="password"  autocomplete="new-password" id="form2" class="form-control" formControlName="password">
+			</mat-form-field>
+			<button mat-flat-button color="accent" (click)="signUp(signupForm.value)"> Sign Up</button>
 		</div>
-	</div>	
+	</div>
 </div>
+
 
 
 

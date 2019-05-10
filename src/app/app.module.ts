@@ -13,6 +13,11 @@ import { SignupComponent } from './signup/signup.component';
 import { DisplayDataComponent } from './display-data/display-data.component';
 import { AuthService } from './services/auth.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule,MatInputModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+
 
 
  export const config = {
@@ -39,7 +44,12 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 	AngularFireModule.initializeApp(config),
 	AngularFirestoreModule, // firestore
 	AngularFireAuthModule, // auth
-	AngularFireStorageModule // storage
+	AngularFireStorageModule, BrowserAnimationsModule, // storage
+	MatButtonModule,
+	MatCheckboxModule,
+	MatInputModule,
+	MatFormFieldModule,
+	MatIconModule
 	],
 	providers: [ AuthService ],
 	bootstrap: [AppComponent]

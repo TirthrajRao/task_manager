@@ -1,55 +1,22 @@
-<div class="container mt-6">
-	<div class="card panels-card">
-		<div class="container">
-			<div class="row login_form">
-				<h4 class="card-header-title mt-2 text-center">
-					<span class="icon-login"></span> Login
-				</h4>
-				<div class="card-body box pt-1">
-					<form [formGroup]="loginForm">
-						<div class="row">
-							<div class="col-11">
-								<div class="md-form">
-									<label for="form2">Email</label>
-									<input mdbInput type="text" id="form2" autocomplete= 'false | random-string'  class="form-control" formControlName="email" />
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-11">
-								<div class="md-form">
-									<label for="form2">Password</label> 
-									<input mdbInput type="password" autocomplete="new-password" id="form2" class="form-control" formControlName="password">
-								</div>
-							</div>
-						</div>
-						<div class="row ">
-							<div class="col-11" >
-								<div class="md-form" style="margin-top: 10px;">
-									<button type="button" class="btn btn-block" (click)="signInWithGoogle()">
-										<i class="fa fa-google" aria-hidden="true"></i>
-										Login with Google
-									</button>
-									<button type="buton" class="btn btn-block" (click)="signInWithFacebook()">
-										<i class="fa fa-facebook" aria-hidden="true"></i> 
-										Login with Facebook
-									</button>
-									<!-- <button type="button" class="btn btn-block" (click)="signInWithTwitter()">
-										<i class="fa fa-twitter" aria-hidden="true"></i>
-										Login with Twitter
-									</button> -->
-								</div>
-							</div>
-						</div>
-						<div class="md-form" style="margin-top: 10px;">
-							<button class="btn btn-default" (click)="login(loginForm.value)"  mdbBtn color="primary" mdbWavesEffect style="background-color: #3998c5; border: none; color: white; margin-left: 120px;">Log In</button>
-							<button class="btn btn-default" mdbBtn color="primary" mdbWavesEffect style="margin-left: 10px; background-color: #3998c5; border: none; color: white" routerLink="/signup">Sign Up</button>
-						</div>
-					</form>
-				</div>
-			</div>
+<div class="background-image">
+	<img src="../assets/backgroundImage.jpg">
+	<div class="content">
+		<div class="form_inputs" [formGroup]="loginForm">
+			<h1 mat-title style="color: #000; text-align: center;">Login</h1>
+			<mat-icon color="primary" style="margin-right: 5px;">person</mat-icon>
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Username" value="" type="text" id="form2" autocomplete= 'false | random-string'  class="form-control" formControlName="email">
+			</mat-form-field><br>
+			<mat-icon color="primary" style="margin-right: 5px;">lock</mat-icon>
+			<mat-form-field class="example-full-width">
+				<input matInput placeholder="Password" value="" type="password" autocomplete="new-password" id="form2" class="form-control" formControlName="password">
+			</mat-form-field>
+			<button mat-raised-button color="primary" style="width: 100%;" (click)="login(loginForm.value)" > Login</button><br>
+			<button mat-raised-button style="background-color:#DD4D42; color: #fff " (click)="signInWithGoogle()"> Sign in with Google</button><br>
+			<button mat-raised-button style="background-color:#3B5898; color: #fff " (click)="signInWithFacebook()"> Sign in with Facebook</button><br>
+			<button mat-stroked-button color="accent" routerLink="/signup"> Sign Up</button>
 		</div>
-	</div>	
+	</div>
 </div>
-
-
+<!-- #3B5898
+#3f50b5 -->
