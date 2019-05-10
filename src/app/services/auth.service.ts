@@ -14,8 +14,6 @@ interface User {
 	
 }
 
-
-
 @Injectable({ 
 	providedIn: 'root'
 })
@@ -37,7 +35,6 @@ export class AuthService {
 			);
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
-				// User is signed in.
 				var displayName = user.displayName;
 				var email = user.email;
 				var emailVerified = user.emailVerified;
@@ -47,7 +44,7 @@ export class AuthService {
 				var providerData = user.providerData;
 				// ...
 			} else {
-				
+
 			}
 		});
 
@@ -79,7 +76,8 @@ export class AuthService {
 			return true;
 		}
 	}
-	logout() {
+
+	signOut() {
 		this._firebaseAuth.auth.signOut()
 		.then((res) => this.router.navigate(['/']));
 	}

@@ -1,0 +1,10 @@
+.logout_btn{
+	margin-left: 50px;
+	border: none; 
+	color: white;
+}
+.btn{
+	float: right !important;
+	background-color: #3998c5;
+	color: white;
+}

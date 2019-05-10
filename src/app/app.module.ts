@@ -7,12 +7,16 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule} from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { DisplayDataComponent } from './display-data/display-data.component';
 import { AuthService } from './services/auth.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { TasklistService } from './services/tasklist.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+
 
 
  export const config = {
@@ -41,7 +45,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 	AngularFireAuthModule, // auth
 	AngularFireStorageModule // storage
 	],
-	providers: [ AuthService ],
+	providers: [ AuthService, TasklistService, AngularFireDatabase ],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
