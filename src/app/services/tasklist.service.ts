@@ -4,10 +4,20 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable, of } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { tap, map, take } from 'rxjs/operators';
+interface Task {
+	title: string;
+	desc: string;
+	status:'to-do';
+	priority:string;
+	
+}
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-	// toDoList : AngularFireList<any>;
+@Injectable({
+	providedIn: 'root'
+})
+export class TasklistService {
+
+	toDoList : AngularFireList<any>;
 	constructor(private router: Router, private authService: AuthService, private firebasedb: AngularFireDatabase) { }
 	canActivate() {
 		if ( this.authService.isLoggedIn() ) {
@@ -16,22 +26,16 @@ export class AuthGuard implements CanActivate {
 		this.router.navigate(['/']);
 		return false;
 	}
-	// getToDoList(){
-	// 	this.toDoList = this.firebasedb.list('task');
-	// 	return this.toDoList;
-	// }
+	getToDoList(){
+		this.toDoList = this.firebasedb.list('task');
+		return this.toDoList;
+	}
 
-	// addTask(title: string){
-	// 	this.toDoList.push({
-	// 		title: title,
-	// 		isChecked: false
-	// 	})
-	// }
-	// checkOrUncheckTitle($key: string, flag: boolean){
-	// 	this.toDoList.update($key,{isChecked: flag});
-	// }
-	// removeTask($key: string){
-	// 	this.toDoList.remove($key);
-	// }
+	addTask(Task){
+		this.toDoList.push('Task')
+	}
 
+	removeTask($key: string){
+		this.toDoList.remove($key);
+	}
 }

@@ -8,14 +8,12 @@ import * as firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 
-
 @Component({
 	selector: 'app-login',
 	templateUrl: './login.component.html',
 	styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
 
 	showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
 	loginForm : FormGroup;
@@ -28,12 +26,9 @@ export class LoginComponent implements OnInit {
 			
 		});
 	}
-
-
 	ngOnInit() {
 
 	}
-
 	login(form){
 		console.log(form);
 		firebase.auth().signInWithEmailAndPassword(form.email, form.password).then((res)=>{
@@ -52,7 +47,7 @@ export class LoginComponent implements OnInit {
 		console.log("hiiiiiiiiiiiiiiiiiiiiiii");
 		this.auth.signInWithFacebook()
 		.then((res) => { 
-			
+
 			console.log("resssssssssss",res);
 			this.router.navigate(['display-data'])
 		})
@@ -67,13 +62,31 @@ export class LoginComponent implements OnInit {
 		})
 		.catch((err) => console.log(err));
 	}
+}
+// login(email: string, password: string) {
+	//     this._firebaseAuth
+	//       .auth
+	//       .signInWithEmailAndPassword(email, password)
+	//       .then(value => {
+		//         if (this.firebaseAuth.auth) {
+			//           if (this.firebaseAuth.auth.currentUser) { this.isLoggedIn = true; }
+			//           this.router.navigate(["home"]);
+			//         }
+			//         else {
+				//           alert('Username or Password is not correct!');
+				//           this.router.navigate([""]);
+				//         }
+				//       })
+				//       .catch(err => {
+					//         alert(`'Something went wrong:', ${err.message}`);
+					//       });
+					//   }
 
-	// signInWithTwitter() {
-		// 	this.auth.signInWithTwitter()
-		// 	.then((res) => { 
-			// 		this.router.navigate(['display-data'])
-			// 	})
-			// 	.catch((err) => console.log(err));
-			// }
 
-		}
+					// signInWithTwitter() {
+						// 	this.auth.signInWithTwitter()
+						// 	.then((res) => { 
+							// 		this.router.navigate(['display-data'])
+							// 	})
+							// 	.catch((err) => console.log(err));
+								// }

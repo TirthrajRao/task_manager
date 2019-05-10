@@ -7,7 +7,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule} from '@angular/fire/auth';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { DisplayDataComponent } from './display-data/display-data.component';
@@ -17,6 +17,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule,MatInputModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { TasklistService } from './services/tasklist.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 
 
@@ -51,7 +54,7 @@ import { MatIconModule } from '@angular/material/icon';
 	MatFormFieldModule,
 	MatIconModule
 	],
-	providers: [ AuthService ],
+	providers: [ AuthService, TasklistService, AngularFireDatabase ],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

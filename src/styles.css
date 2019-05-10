@@ -1,2 +1,9 @@
+<<<<<<< HEAD
 /* You can add global styles to this file, and also import other style files  */
 @import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+=======
+/* You can add global styles to this file, and also import other style files */
+.hover-cursor{
+	cursor: pointer;
+}
+>>>>>>> 4b8c419954dd0cc7f03fc41f694308b1d160f075
