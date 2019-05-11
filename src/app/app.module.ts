@@ -27,6 +27,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 
 
 
+
  export const config = {
 	apiKey: "AIzaSyDCgMHeyRnGckj-jsxxInLz38c7nmkefkQ",
 	authDomain: "newproject1-6e4c1.firebaseapp.com",
@@ -69,4 +70,5 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 	providers: [ AuthService, TasklistService, AngularFireDatabase ],
 	bootstrap: [AppComponent]
 })
+
 export class AppModule { }

@@ -30,12 +30,9 @@ export class TasklistService {
 		this.toDoList = this.firebasedb.list('task');
 		return this.toDoList;
 	}
-
-	addTask(Task){
-		this.toDoList.push('Task')
-	}
-
-	removeTask($key: string){
+	
+	removeTask($key){
+		console.log($key);
 		this.toDoList.remove($key);
 	}
 }
