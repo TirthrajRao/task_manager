@@ -1,10 +1,18 @@
-.logout_btn{
-	margin-left: 50px;
-	border: none; 
-	color: white;
+.example-spacer {
+	flex: 1 1 auto;
 }
-.btn{
-	float: right !important;
-	background-color: #3998c5;
-	color: white;
+.example-full-width {
+	width: 100%;
+	max-width: 400px;
+}
+.mat-dialog-actions{
+	float: right;
+	margin: 1px;
+}
+.Content_modal{
+	padding: 20px 25px;
+}
+.example-card {
+  max-width: 400px;
+  margin: 10px auto;
 }

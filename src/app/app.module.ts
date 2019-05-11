@@ -10,16 +10,20 @@ import { AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
-import { DisplayDataComponent } from './display-data/display-data.component';
+import { DisplayDataComponent, MyDialog } from './display-data/display-data.component';
 import { AuthService } from './services/auth.service';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule,MatInputModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule} from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 import { TasklistService } from './services/tasklist.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 
 
@@ -38,7 +42,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 	AppComponent,
 	LoginComponent,
 	SignupComponent,
-	DisplayDataComponent
+	DisplayDataComponent,
+	MyDialog,
 	],
 	imports: [
 	BrowserModule,
@@ -52,7 +57,14 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 	MatCheckboxModule,
 	MatInputModule,
 	MatFormFieldModule,
-	MatIconModule
+	MatIconModule,
+	MatToolbarModule,
+	MatDialogModule,
+	MatSelectModule,
+	MatCardModule
+	],
+	entryComponents: [
+		MyDialog
 	],
 	providers: [ AuthService, TasklistService, AngularFireDatabase ],
 	bootstrap: [AppComponent]

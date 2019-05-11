@@ -1,66 +1,40 @@
-
-<div class="logout_btn"><button class="btn btn-default log_btn" mdbBtn color="primary" mdbWavesEffect (click)="logout()">Logout</button>
-	<button class="btn btn-default log_btn" color="primary" data-toggle="modal" data-target="#myModal"(click)="addTask(itemTitle)">Add Task</button></div>
-
+<body>
+	<mat-toolbar color="primary">
+		<mat-icon>description</mat-icon>
+		<h3>Task List</h3>
+		<span class="example-spacer"></span>
+		<button mat-flat-button color="accent" (click)="openDialog($evt)"><mat-icon class="example-icon">add</mat-icon>Add Task</button>
+	</mat-toolbar>
 	<div class="title" style="padding: 45px 0px;">
 		<h4 class="text-center"> Task List</h4>
 	</div>
 
-	<div class="container">
-
+	<mat-card class="example-card">
+		<mat-card-header>
+			<div mat-card-avatar class="example-header-image"></div>
+			<mat-card-title>Shiba Inu</mat-card-title>
+			<mat-card-subtitle>Dog Breed</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content>
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-button>LIKE</button>
+			<button mat-button>SHARE</button>
+		</mat-card-actions>
+	</mat-card>
+	<!-- <div class="container">
 		<div class="task_list">
 			<ul class="list-group">
 				<li class="list-group-item" *ngFor="let item of toDoListArray">
 					{{item.title}}
-					<span class="hover-cursor text-danger" style="margin-left: 50px;">
+					<span class="hover-cursor text-danger" style="gin-left: 5mar0px;">
 						{{item.desc}}
 					</span>
-					<span class="hover-cursor text-danger pull-right">
+					<span class="hover-cursor text-danger pull-right" style="margin-left: 50px;">
 						{{item.priority}}
 					</span>
 				</li>
 			</ul>
 		</div>
-	</div>
-
-	<!-- model start here -->
-	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Add Task</h4>
-				</div>
-				<div class="modal-body">
-					<form style="width: 100%;" [formGroup]="addTaskForm">
-						<div class="form-group">
-							<label for="title">Title</label>
-							<input type="text" id="title" formControlName="title" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="desc">Description</label>
-							<textarea id="desc" formControlName="desc" class="form-control md-textarea"></textarea>
-						</div>
-						<div class="row no-margin no-padding  border" >
-							<div class="form-group col-md-6 pt-1">
-								<label for="priority">Priority</label>
-								<select class="form-control" id="priority" formControlName="priority">
-									<option value="Low">Low</option>
-									<option value="Medium">Medium</option>
-									<option value="High">High</option>
-									<option value="Highest">Highest</option>
-								</select>
-							</div>
-						</div>
-					</form>
-					<div class="modal-footer">
-						<div class="float-right">
-
-							<button type="button" class="btn btn-default ml-0" data-dismiss="modal">Close</button>
-							<button type="submit" id="save_changes" class="btn btn-primary" (click)="addTask(addTaskForm.value)">Add Task</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	</div> -->
+</body>
