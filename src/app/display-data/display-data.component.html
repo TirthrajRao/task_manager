@@ -1,25 +1,57 @@
 <body>
 	<mat-toolbar color="primary">
 		<mat-icon>description</mat-icon>
-		<h3>Task List</h3>
+		<h1>Task List</h1>
 		<span class="example-spacer"></span>
 		<button mat-flat-button color="accent" (click)="openDialog($evt)"><mat-icon class="example-icon">add</mat-icon>Add Task</button>
 	</mat-toolbar>
-	<div class="title" style="padding: 45px 0px;">
-		<h4 class="text-center"> Task List</h4>
+	<div class="main_container">
+		<h5>ToDo List</h5>
+		<div class="todo_list">
+			<mat-card class="example-card" *ngFor="let task of taskArray">
+				<mat-card-header>
+					<div class="card_header">
+						<div class="left_side">
+							<mat-card-title>{{task.title}}</mat-card-title>
+						</div>
+						<div class="right_side">
+							<button mat-icon-button [matMenuTriggerFor]="menu">
+								<mat-icon>more_vert</mat-icon></button>
+							</div>
+						</div>
+					</mat-card-header>
+						<mat-card-subtitle>{{task.priority}}</mat-card-subtitle>
+				<mat-card-content>{{task.desc}}</mat-card-content>
+			</mat-card>
+		</div>
+		<div class="incomplete_list">
+			<mat-card class="example-card" *ngFor="let task of taskArray">
+				<mat-card-header>
+					<div class="card_header">
+						<div class="left_side">
+							<mat-card-title>{{task.title}}</mat-card-title>
+						</div>
+						<div class="right_side">
+							<button mat-icon-button [matMenuTriggerFor]="menu">
+								<mat-icon>more_vert</mat-icon></button>
+							</div>
+						</div>
+					</mat-card-header>
+						<mat-card-subtitle>{{task.priority}}</mat-card-subtitle>
+				<mat-card-content>{{task.desc}}</mat-card-content>
+			</mat-card>
+		</div>
 	</div>
-		<mat-card class="example-card" *ngFor="let task of taskArray">
-			<mat-card-header>
-				<div mat-card-avatar class="example-header-image" ></div>
-				<mat-card-title>{{task.title}}</mat-card-title>
-				<mat-card-subtitle>{{task.priority}}</mat-card-subtitle>
-			</mat-card-header>
-			<mat-card-content>{{task.desc}}
-			</mat-card-content>
-			<mat-card-actions>
-				<button mat-button>Delete</button>
-				<button mat-button>Update</button>
-			</mat-card-actions>
-		</mat-card>
 </body>
+<!-- menu update delete -->
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>dialpad</mat-icon>
+    <span>Edit Task</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>voicemail</mat-icon>
+    <span>Delete Task</span>
+  </button>
 
+</mat-menu>

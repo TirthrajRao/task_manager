@@ -1,3 +1,24 @@
+body{
+	background-color: #f1f1f1;
+	height: auto;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px lightgrey; 
+  border-radius: 3px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc; 
+  border-radius: 3px;
+}
+
 .example-spacer {
 	flex: 1 1 auto;
 }
@@ -15,4 +36,38 @@
 .example-card {
   max-width: 400px;
   margin: 10px auto;
+}
+.main_container{
+	margin: 10px auto;    
+}
+.todo_list{
+	float: left;
+    width: 400px;
+    height: 800px;
+    overflow: auto;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+.incomplete_list{
+	width: 400px;
+    padding-left: 16px;
+    border-left: 1px dashed gray;
+    height: 800px;
+    overflow: auto;
+}
+.mat-card{
+	margin: 10px;
+}
+.mat-card-header-text{
+	margin: 0px!important;
+}
+.card_header{
+	width: 100%;
+	display: inline-block;
+}	
+.left_side{
+	float: left;
+}
+.right_side{
+	float: right;
 }
