@@ -7,7 +7,10 @@ import { Observable, of } from 'rxjs';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { TasklistService } from '../services/tasklist.service';
 import { FormGroup, FormControl , ReactiveFormsModule} from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { MyDialogComponent } from '../my-dialog/my-dialog.component';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+
 const snapshotToArray = (snapshot) => {
 	const returnArr = [];
 
@@ -41,14 +44,18 @@ export class DisplayDataComponent implements OnInit {
 	addTaskForm : FormGroup;
 	userId;
 
-	constructor(private firebasedb: AngularFireDatabase,public auth: AuthService,
+	
+	constructor(public dialog: MatDialog, private firebasedb: AngularFireDatabase,public auth: AuthService,
 		private router: Router, private _firebaseAuth: AngularFireAuth, private tasklistService: TasklistService, public afs: AngularFirestore) { 
+
+		
 		this.addTaskForm = new FormGroup({
 			title: new FormControl(''),
 			desc: new FormControl(''),
 			status: new FormControl({value: 'to-do'}),
 			priority: new FormControl(''),
 		});
+		
 		this.userId = firebase.auth().currentUser.uid
 		console.log(this.userId);
 	}
@@ -65,6 +72,20 @@ export class DisplayDataComponent implements OnInit {
 			status: user.status,
 		}));
 		console.log(this.users);
+
+
+		this.userId = firebase.auth().currentUser.uid
+		console.log(this.userId);
+	}
+	
+	openDialog($evt): void {
+		const dialogRef = this.dialog.open(MyDialog, {
+			width: '500px',
+		});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log('The dialog was closed');
+		});
 	}
 
 	logout(){
@@ -87,13 +108,16 @@ export class DisplayDataComponent implements OnInit {
 		this.tasklistService.removeTask(itemId);
 	}
 
+
 }
-// this.tasklistService.getToDoList().snapshotChanges()
-// 		.subscribe(item=>{
-	// 			this.toDoListArray = [];
-	// 			item.forEach(element =>{
-		// 				const x = element.payload.toJSON();
-		// 				this.toDoListArray.push(x);
-		// 				console.log(x);
-		// 			})
-// 		});
+@Component({
+	selector: 'dig-com',
+	templateUrl: './my-dialog.html',
+	styleUrls: ['./display-data.component.css']
+})
+
+export class MyDialog {
+	constructor(){
+	
+	}
+}
