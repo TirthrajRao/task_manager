@@ -10,6 +10,7 @@ import { FormGroup, FormControl , ReactiveFormsModule} from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { MyDialogComponent } from '../my-dialog/my-dialog.component';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 const snapshotToArray = (snapshot) => {
 	const returnArr = [];
@@ -40,9 +41,10 @@ interface Task {
 })
 export class DisplayDataComponent implements OnInit {
 
-	users : any[];
+	taskArray : any[];
 	addTaskForm : FormGroup;
 	userId;
+	Track: any[];
 
 	
 	constructor(public dialog: MatDialog, private firebasedb: AngularFireDatabase,public auth: AuthService,
@@ -63,7 +65,7 @@ export class DisplayDataComponent implements OnInit {
 	async ngOnInit() {
 		const listArray = this.firebasedb.database.ref().child('task');
 		const allTaskSnapshot = await listArray.once('value');
-		this.users = snapshotToArray(allTaskSnapshot)
+		this.taskArray = snapshotToArray(allTaskSnapshot)
 		.map(user => ({
 			title: user.title,
 			uid: user.id,
@@ -71,53 +73,80 @@ export class DisplayDataComponent implements OnInit {
 			priority: user.priority,
 			status: user.status,
 		}));
-		console.log(this.users);
+		console.log(this.taskArray);
 
 
 		this.userId = firebase.auth().currentUser.uid
 		console.log(this.userId);
 	}
-	
-	openDialog($evt): void {
-		const dialogRef = this.dialog.open(MyDialog, {
-			width: '500px',
-		});
 
-		dialogRef.afterClosed().subscribe(result => {
-			console.log('The dialog was closed');
-		});
-	}
+	// onTalkDrop(event: CdkDragDrop<Task[]>) {
+		// 	if (event.previousContainer === event.container) {
+			// 		moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+			// 	} else {
+				// 		transferArrayItem(event.previousContainer.data,
+				// 			event.container.data,
+				// 			event.previousIndex,
+				// 			event.currentIndex);
+				// 	}
+				// }
 
-	logout(){
-		firebase.auth().signOut().then(function() {
-		}).catch(function(error) {
-		});
-	}
-	addTask(form){
-		console.log(form)
-		firebase.database().ref('task/').push({
-			title: form.title,
-			desc: form.desc,
-			status: form.status.value,
-			priority: form.priority
-		});
-		console.log(form);
-	}
-	deleteTask(itemId){
-		console.log(itemId);
-		this.tasklistService.removeTask(itemId);
-	}
+				// onTrackDrop(event: CdkDragDrop<Track[]>) {
+					// 	moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+					// }
+
+					openDialog($evt): void {
+						const dialogRef = this.dialog.open(MyDialog, {
+							width: '500px',
+						});
+
+						dialogRef.afterClosed().subscribe(result => {
+							console.log('The dialog was closed');
+						});
+					}
+
+					logout(){
+						firebase.auth().signOut().then(function() {
+						}).catch(function(error) {
+						});
+					}
+
+					deleteTask(itemId){
+						console.log(itemId);
+						this.tasklistService.removeTask(itemId);
+					}
 
 
-}
-@Component({
-	selector: 'dig-com',
-	templateUrl: './my-dialog.html',
-	styleUrls: ['./display-data.component.css']
-})
+				}
+				@Component({
+					selector: 'dig-com',
+					templateUrl: './my-dialog.html',
+					styleUrls: ['./display-data.component.css']
+				})
 
-export class MyDialog {
-	constructor(){
-	
-	}
-}
+				export class MyDialog {
+					addTaskForm : FormGroup;
+					constructor(){
+
+						this.addTaskForm = new FormGroup({
+							title: new FormControl(''),
+							desc: new FormControl(''),
+							status: new FormControl({value: 'to-do'}),
+							priority: new FormControl(''),
+						});
+
+					}
+					addTask(form){
+						console.log(form)
+						firebase.database().ref('task/').push({
+							title: form.title,
+							desc: form.desc,
+							status: form.status.value,
+							priority: form.priority
+						});
+						console.log(form);
+					}
+					// onClick(){
+					// 	 dialogRef.close('Pizza!');
+					// }
+				}
