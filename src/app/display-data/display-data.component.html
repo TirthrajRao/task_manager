@@ -5,18 +5,22 @@
 	<div class="title" style="padding: 45px 0px;">
 		<h4 class="text-center"> Task List</h4>
 	</div>
-
 	<div class="container">
-
 		<div class="task_list">
 			<ul class="list-group">
-				<li class="list-group-item" *ngFor="let item of toDoListArray">
+				<li class="list-group-item" *ngFor="let item of users">
 					{{item.title}}
 					<span class="hover-cursor text-danger" style="margin-left: 50px;">
 						{{item.desc}}
 					</span>
+					<!-- <span class="hover-cursor text-danger" style="margin-left: 50px;">
+						{{item.uid}}
+					</span> -->
 					<span class="hover-cursor text-danger pull-right">
 						{{item.priority}}
+					</span>
+					<span>
+						<button class="btn btn-default" (click)="deleteTask(item.uid)">delete</button>
 					</span>
 				</li>
 			</ul>
@@ -55,7 +59,6 @@
 					</form>
 					<div class="modal-footer">
 						<div class="float-right">
-
 							<button type="button" class="btn btn-default ml-0" data-dismiss="modal">Close</button>
 							<button type="submit" id="save_changes" class="btn btn-primary" (click)="addTask(addTaskForm.value)">Add Task</button>
 						</div>

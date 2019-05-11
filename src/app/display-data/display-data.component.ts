@@ -4,16 +4,31 @@ import {Router} from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { TasklistService } from '../services/tasklist.service';
 import { FormGroup, FormControl , ReactiveFormsModule} from '@angular/forms';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+const snapshotToArray = (snapshot) => {
+	const returnArr = [];
+
+	snapshot.forEach((childSnapshot) => {
+		const item = childSnapshot.val();
+		console.log("In snapshot array==========>",item, childSnapshot.key)
+		if(typeof item == 'object')
+			item.id = childSnapshot.key;
+
+		returnArr.push(item);
+	});
+
+	return returnArr;
+};
+
 interface Task {
 	title: string;
 	desc: string;
 	status:'to-do';
 	priority:string;
-	
 }
-
 @Component({
 	selector: 'app-display-data',
 	templateUrl: './display-data.component.html',
@@ -22,41 +37,43 @@ interface Task {
 })
 export class DisplayDataComponent implements OnInit {
 
-	toDoListArray : any[];
+	users : any[];
 	addTaskForm : FormGroup;
+	userId;
 
-	constructor(public auth: AuthService,
-		private router: Router, private _firebaseAuth: AngularFireAuth, private tasklistService: TasklistService) { 
+	constructor(private firebasedb: AngularFireDatabase,public auth: AuthService,
+		private router: Router, private _firebaseAuth: AngularFireAuth, private tasklistService: TasklistService, public afs: AngularFirestore) { 
 		this.addTaskForm = new FormGroup({
 			title: new FormControl(''),
 			desc: new FormControl(''),
 			status: new FormControl({value: 'to-do'}),
 			priority: new FormControl(''),
-
 		});
+		this.userId = firebase.auth().currentUser.uid
+		console.log(this.userId);
 	}
-	ngOnInit() {
-		this.tasklistService.getToDoList().snapshotChanges()
-		.subscribe(item=>{
-			this.toDoListArray = [];
-			item.forEach(element =>{
-				var x = element.payload.toJSON();
-				this.toDoListArray.push(x);
-				console.log(x);
-			})
-		});
+
+	async ngOnInit() {
+		const listArray = this.firebasedb.database.ref().child('task');
+		const allTaskSnapshot = await listArray.once('value');
+		this.users = snapshotToArray(allTaskSnapshot)
+		.map(user => ({
+			title: user.title,
+			uid: user.id,
+			desc: user.desc,
+			priority: user.priority,
+			status: user.status,
+		}));
+		console.log(this.users);
 	}
 
 	logout(){
 		firebase.auth().signOut().then(function() {
-			console.log("log out");
 		}).catch(function(error) {
 		});
 	}
-	
 	addTask(form){
 		console.log(form)
-		this.tasklistService.addTask(form.value);
 		firebase.database().ref('task/').push({
 			title: form.title,
 			desc: form.desc,
@@ -64,10 +81,19 @@ export class DisplayDataComponent implements OnInit {
 			priority: form.priority
 		});
 		console.log(form);
-
+	}
+	deleteTask(itemId){
+		console.log(itemId);
+		this.tasklistService.removeTask(itemId);
 	}
 
-
-
-
 }
+// this.tasklistService.getToDoList().snapshotChanges()
+// 		.subscribe(item=>{
+	// 			this.toDoListArray = [];
+	// 			item.forEach(element =>{
+		// 				const x = element.payload.toJSON();
+		// 				this.toDoListArray.push(x);
+		// 				console.log(x);
+		// 			})
+// 		});
