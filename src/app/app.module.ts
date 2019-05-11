@@ -24,11 +24,11 @@ import { MatCardModule } from '@angular/material/card';
 import { TasklistService } from './services/tasklist.service';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
-
- export const config = {
+export const config = {
 	apiKey: "AIzaSyDCgMHeyRnGckj-jsxxInLz38c7nmkefkQ",
 	authDomain: "newproject1-6e4c1.firebaseapp.com",
 	databaseURL: "https://newproject1-6e4c1.firebaseio.com",
@@ -47,6 +47,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 	MyDialog,
 	],
 	imports: [
+	HttpClientModule,
 	BrowserModule,
 	ReactiveFormsModule,
 	AppRoutingModule,
@@ -62,10 +63,11 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 	MatToolbarModule,
 	MatDialogModule,
 	MatSelectModule,
-	MatCardModule
+	MatCardModule,
+	DragDropModule
 	],
 	entryComponents: [
-		MyDialog
+	MyDialog
 	],
 	providers: [ AuthService, TasklistService, AngularFireDatabase ],
 	bootstrap: [AppComponent]

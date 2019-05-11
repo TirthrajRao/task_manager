@@ -6,8 +6,12 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { auth } from  'firebase/app';
 import {Router} from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { switchMap} from 'rxjs/operators';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { map } from 'rxjs/operators';
+
 interface User {
 	email: string;
 	password: string;
@@ -20,39 +24,43 @@ interface User {
 export class AuthService { 
 	private user: Observable<firebase.User>;
 	private userDetails: firebase.User = null;
-	constructor(private _firebaseAuth: AngularFireAuth, private router: Router) { 
+	
+	private currentUserSubject: BehaviorSubject<any>;
+	public currentUser: Observable<any>;
+	constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private http:HttpClient) { 
+		
+		this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
+		this.currentUser = this.currentUserSubject.asObservable();
+
 		this.user = _firebaseAuth.authState;
 		this.user.subscribe(
 			(user) => {
 				if (user) {
 					this.userDetails = user;
 					console.log(this.userDetails);
+					localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
 				}
 				else {
 					this.userDetails = null;
 				}
 			}
 			);
-		firebase.auth().onAuthStateChanged(function(user) {
-			if (user) {
-				var displayName = user.displayName;
-				var email = user.email;
-				var emailVerified = user.emailVerified;
-				var photoURL = user.photoURL;
-				var isAnonymous = user.isAnonymous;
-				var uid = user.uid;
-				var providerData = user.providerData;
-				// ...
-			} else {
-
-			}
-		});
-
 
 	}
+	public get currentUserValue(): any {
+		return this.currentUserSubject.value;
+	}
+
+
+	setLoggedIn(value: boolean){
+		localStorage.setItem('loggedIn','true')
+	}
+
+
 	signInRegular(email, password) {
 		const credential = firebase.auth.EmailAuthProvider.credential( email, password );
 		return this._firebaseAuth.auth.signInWithEmailAndPassword(email, password)
+		
 	}
 	signInWithTwitter() {
 		return this._firebaseAuth.auth.signInWithPopup(
@@ -75,12 +83,13 @@ export class AuthService {
 		} else {
 			return true;
 		}
+
 	}
 
-	signOut() {
-		this._firebaseAuth.auth.signOut()
-		.then((res) => this.router.navigate(['/']));
-	}
+	// signOut() {
+		// 	this._firebaseAuth.auth.signOut()
+		// 	.then((res) => this.router.navigate(['/']));
+		// }
 
-}
+	}
 

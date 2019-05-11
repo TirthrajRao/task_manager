@@ -19,7 +19,7 @@
 		</mat-form-field>
 	</div>
 	<div mat-dialog-actions>
-		<button mat-flat-button color="accent" (click)="onClick()">Cancel</button>
+		<button mat-flat-button color="accent" mat-raised-button matDialogClose>Cancel</button>
 		<button mat-flat-button  color="primary" type="submit" id="save_changes" (click)="addTask(addTaskForm.value)">Add Task</button>
 	</div>
 </div>

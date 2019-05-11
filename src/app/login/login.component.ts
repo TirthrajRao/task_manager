@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
 	showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
 	loginForm : FormGroup;
-
+	userDetails ;
 	constructor(public auth: AuthService,
 		private router: Router, private _firebaseAuth: AngularFireAuth) {
 		this.loginForm = new FormGroup({
@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
 		console.log(form);
 		firebase.auth().signInWithEmailAndPassword(form.email, form.password).then((res)=>{
 			console.log("reeessssssss====>",res);
+			this.userDetails = res;
 			alert("login sucessfully")
+			localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
 			this.router.navigate(['display-data'])
 		}).catch(function(error) {
 			var errorCode = error.code;
