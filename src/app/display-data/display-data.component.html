@@ -1,62 +1,65 @@
-<body>
-	<mat-toolbar color="primary">
-		<mat-icon>description</mat-icon>
-		<h3>Task List</h3>
-		<span class="example-spacer"></span>
-		<button mat-flat-button color="accent" (click)="openDialog($evt)"><mat-icon class="example-icon">add</mat-icon>Add Task</button>
+<mat-toolbar class="head">
+	<mat-icon style="margin-left: 580px;">description</mat-icon>
+	<h1 style="font-size: 30px;"> Task List</h1>
+	<span class="example-spacer"></span>
+
+	<button mat-icon-button (click)="openDialog($evt)" >
+		<mat-icon style="font-size: 29px;" matTooltip="Add Task">add_circle</mat-icon></button>
+
+		<mat-icon (click)="logout()" class="logout_icon" matTooltip="Signout"
+		aria-label="Button that displays a tooltip when focused or hovered over">account_circle</mat-icon>
 	</mat-toolbar>
-	<div class="title" style="padding: 45px 0px;">
-		<h4 class="text-center"> Task List</h4>
+	<div>
+		<select  class="browser-default custom-select custom-select-sm"  (change)="filterTracks($event.target.value)" style="width: 180px; float: right; margin-top: 10px; margin-right: 10px;" >
+			<!-- <option >All Project</option> -->
+			<option *ngFor="let post of colect">{{post.id}}</option>
+		</select>
 	</div>
-	<div class="example-container">
-		<div cdkDropList #todoList="cdkDropList" [cdkDropListData]="tracks" 
-		[cdkDropListConnectedTo]="[doneList]"
-		class="example-list"
-		(cdkDropListDropped)="drop($event)">
-		<div class="example-box" *ngFor="let task of taskArray" cdkDrag>
-			<mat-card class="example-card" >
-				<mat-card-header>
-					<div mat-card-avatar class="example-header-image" ></div>
-					<mat-card-title>{{task.title}}</mat-card-title>
-					<mat-card-subtitle >{{task.priority}}</mat-card-subtitle>
-				</mat-card-header>
-				<mat-card-content>{{task.desc}}
-				</mat-card-content>
-				<mat-card-actions>
-					<button mat-button>Delete</button>
-					<button mat-button>Update</button>
-				</mat-card-actions>
-			</mat-card>
-		</div>
-	</div>
-</div>
-</body>
 
-<!-- <div class="example-container">
-  <h2>To do</h2>
-
-  <div
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="todo"
-    [cdkDropListConnectedTo]="[doneList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of taskArray" cdkDrag>{{item}}</div>
-  </div>
-</div>
-
-<div class="example-container">
-  <h2>Done</h2>
-  <div
-    cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="done"
-    [cdkDropListConnectedTo]="[todoList]"
-    class="example-list"
-    (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
-  </div>
-</div> -->
-
+	<div class="main_container">
+		<div class="todo_list">
+			<div class="example-container">
+				<div class="board" cdkDropList [cdkDropListData]="tracks" (cdkDropListDropped)="onTrackDrop($event)" cdkDropListOrientation="horizontal">
+					<div class="card-list mat-elevation-z1" *ngFor="let track of tracks" ng-repeat="-createdAt">
+						<div class="card-header">
+							<div class="track_title">{{track.title}}</div>
+							<div class="card_count_lbl">{{track.task.length}}</div>
+						</div>
+						<div class="card-list-content" cdkDropList [id]="track.id" [cdkDropListData]="track.task" [cdkDropListConnectedTo]="trackIds" (cdkDropListDropped)="onTalkDrop($event)">
+							<div class="hesd_card" *ngFor="let task of track.task "cdkDrag>
+								<mat-card>
+									<mat-card-header>
+										<div style="width: 100%;">
+											<div style="float: left;">
+												<mat-card-title>{{task.title}} </mat-card-title>
+											</div>
+											<div style="float: right;">
+												<button mat-icon-button [matMenuTriggerFor]="menu" >
+													<mat-icon>more_vert</mat-icon></button></div>
+												</div>
+												<mat-menu #menu="matMenu">
+													<button mat-menu-item (click)="openDialog1(task)">
+														<mat-icon>note_add</mat-icon>
+														<span>Edit Task</span>
+													</button>
+													<button mat-menu-item (click)="deleteTask(task)">
+														<mat-icon>delete</mat-icon>
+														<span>Delete Task</span>
+													</button>
+												</mat-menu>
+											</mat-card-header>
+											<mat-card-content>{{task.desc}}</mat-card-content>
+											<div class="priority1">
+												<span class="priority" [ngClass]="getPriorityClass(task.priority)" ></span>
+												<span style="margin-left: 10px;
+												font-size: 14px;">{{task.priority}}</span>
+											</div>
+										</mat-card>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 

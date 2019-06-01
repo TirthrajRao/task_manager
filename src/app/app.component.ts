@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+declare var $ : any;
 
 @Component({
 	selector: 'app-root',
@@ -7,9 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 	title = 'newProject';
-	userDetails:any;
-	constructor() {
-		
+	currentUser:any;
 
+	constructor(public router : Router){
+		this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+	}
+	ngOnInit() {
+		
 	}
 }

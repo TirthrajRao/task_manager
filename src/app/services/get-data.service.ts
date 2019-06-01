@@ -9,11 +9,13 @@ import { tap, map, take } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
 	
 	constructor(private router: Router, private authService: AuthService, private firebasedb: AngularFireDatabase) { }
-	canActivate() {
-		if ( this.authService.isLoggedIn() ) {
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+		const currentUser = this.authService.currentUserValue;
+		console.log(currentUser);
+		if (currentUser != null) {
 			return true;
 		}
-		this.router.navigate(['/']);
+		this.router.navigate(['/login']);
 		return false;
 	}
 	

@@ -5,11 +5,22 @@
 			<h2 mat-header style="color: #000; text-align: center;">SignUp</h2>
 			<mat-icon color="primary" style="margin-right: 5px;">person</mat-icon>
 			<mat-form-field class="example-full-width">
-				<input matInput placeholder="Username" value="" type="text"  id="form2" autocomplete= 'false | random-string'  class="form-control" formControlName="email">
+				<input matInput placeholder="Username" value="" type="text"  id="form2" autocomplete= 'false | random-string'  class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" >
+				<div class="col-md-2" *ngIf="submitted && f.email.errors" class="invalid-feedback">
+					<div *ngIf="f.email.errors.required">Email is required</div>
+					<div *ngIf="f.email.errors.email">Please enter valid Email</div>
+
+				</div>
 			</mat-form-field><br>
 			<mat-icon color="primary" style="margin-right: 5px;">lock</mat-icon>
 			<mat-form-field class="example-full-width">
-				<input matInput placeholder="Password" value="" type="password"  autocomplete="new-password" id="form2" class="form-control" formControlName="password">
+				<input matInput placeholder="Password" value="" type="password"  autocomplete="new-password" id="form2" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" [type]="show ? 'text' : 'password'" >
+				
+				<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+					<div *ngIf="f.password.errors.required">Password is required</div>
+					<div *ngIf="f.password.errors.minlength">Password must contain atleast 6 characters</div>
+					<div *ngIf="f.password.errors.maxlength">Password must be  only 20 characters</div>
+				</div>
 			</mat-form-field>
 			<button mat-flat-button color="accent" (click)="signUp(signupForm.value)"> Sign Up</button>
 		</div>

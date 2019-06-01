@@ -1,76 +1,124 @@
+  .track_title { 
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #e8eaec;
+    text-align: center;
+  }
+  .card_count_lbl{
+    text-align: left;
+    color: #e8eaec;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #e8eaec;
+    text-align: center;
+  }
+  .Low{
+   border: 2px solid yellow!important;
+ }
+ .Medium{
+   border: 2px solid blue!important;
+ }
+ .High{
+   border: 2px solid orange!important;
+ }
+ .Highest{
+  border: 2px solid red!important;
+}
+
+
+.card-header{
+  background-color: black;
+}
+.add_task{
+
+}
+
+.example-card {
+ max-width: 400px;
+ margin: 10px auto;
+ cursor: move;
+}
 .example-spacer {
-	flex: 1 1 auto;
+ flex: 1 1 auto;
 }
 .example-full-width {
-	width: 100%;
-	max-width: 400px;
-}
-.mat-dialog-actions{
-	float: right;
-	margin: 1px;
-}
-.Content_modal{
-	padding: 20px 25px;
-}
-.example-card {
-	max-width: 400px;
-	margin: 10px auto;
+ width: 100%;
+ max-width: 400px;
 }
 
-
-
-
-
-.example-container {
-	width: 400px;
-	max-width: 100%;
-	margin: 0 25px 25px 0;
-	display: inline-block;
-	vertical-align: top;
+.board {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px;
+  margin: auto;
+  
 }
-
-.example-list {
-
-	min-height: 60px;
-	background: white;
-	border-radius: 4px;
-	overflow: hidden;
-	display: block;
+.card-list {
+ height:auto;
+ width: 340px;
+ max-width: 100%;
+ overflow: auto;
+ box-sizing: border-box;
+ margin-right: 14px;
+ flex-shrink: 0;
+ border-radius: 4px;
+ display: flex;
+ flex-direction: column;
+ background-color: #ff4081;
 }
-
-.example-box {
-	padding: 20px 10px;
-	color: rgba(0, 0, 0, 0.87);
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	box-sizing: border-box;
-	cursor: move;
-	background: white;
-	font-size: 14px;
+.main_container{
+  margin: 20px auto;    
 }
-
-.cdk-drag-preview {
-	box-sizing: border-box;
-	border-radius: 4px;
-	box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-	0 8px 10px 1px rgba(0, 0, 0, 0.14),
-	0 3px 14px 2px rgba(0, 0, 0, 0.12);
+.logout_icon{
+  font-size: 28px;
+  margin-bottom: 3px;
+  cursor: pointer;
 }
-
-.cdk-drag-placeholder {
-	opacity: 0;
+.mat-dialog-container {
+  display: block;
+  padding: 24px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: auto;
+  outline: 0;
+  width: 100%;
+  min-height: inherit;
+  max-height: inherit;
 }
+.hesd_card{
+  margin-top: 10px;
+  padding: 0px 8px;
 
-.cdk-drag-animating {
-	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
-
-.example-box:last-child {
-	border: none;
+.head{
+  background-color: black;
+  color: white;
 }
-
-.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-	transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+.priority{
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #2780f8;
+  margin: -2px 0 0 1px;
+}
+.mat-card {
+  background-color: #000;
+  color: white;
+  height: 150px;
+}
+.todo_list{
+  width: 710px;
+  margin: auto;
+}
+.priority1{
+  margin-top: 10px;
 }

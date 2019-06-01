@@ -1,25 +1,47 @@
-<h1 mat-dialog-title><mat-icon class="example-icon">add</mat-icon> Add Task</h1>
+<h1 mat-dialog-title style="text-align: center;">Add Task</h1>
 <div class="Content_modal">
+
 	<div mat-dialog-content [formGroup]="addTaskForm">
 		<mat-form-field class="example-full-width">
-			<input matInput placeholder="Title" type="text" id="title" formControlName="title">
+			<input matInput placeholder="Enter Project name" type="text" id="title" formControlName="projectName">
 		</mat-form-field>
 		<mat-form-field class="example-full-width">
-			<textarea matInput id="desc" formControlName="desc"  placeholder="Description"></textarea>
+			<input matInput placeholder="Title" type="text" id="title" formControlName="title" [ngClass]="{ 'is-invalid': submitted && f.title.errors }" >
+			<div class="col-md-2" *ngIf="submitted && f.title.errors" class="invalid-feedback">
+				<div *ngIf="f.title.errors.required">Title is required</div>
+			</div>
+		</mat-form-field>
+		<mat-form-field class="example-full-width">
+			<textarea matInput id="desc" formControlName="desc"  placeholder="Description" style="resize: none;" [ngClass]="{ 'is-invalid': submitted && f.title.errors }"></textarea>
+			<div class="col-md-2" *ngIf="submitted && f.desc.errors" class="invalid-feedback">
+				<div *ngIf="f.desc.errors.required">Description is required</div>
+			</div>
+		</mat-form-field>
+		<mat-form-field class="example-full-width">
+			<input matInput [matDatepicker]="picker"  formControlName="date" placeholder="Enter due-date" >
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker></mat-datepicker>
 		</mat-form-field>
 		<mat-form-field class="example-full-width">
 			<mat-label>Priority</mat-label>
-			<mat-select [(value)]="selected" formControlName="priority">
+			<mat-select [(value)]="selected" formControlName="priority" [ngClass]="{ 'is-invalid': submitted && f.priority.errors }">
 				<mat-option>None</mat-option>
 				<mat-option value="Highest">Highest</mat-option>
 				<mat-option value="High">High</mat-option>
 				<mat-option value="Medium">Medium</mat-option>
 				<mat-option value="Low">Low</mat-option>
 			</mat-select>
+			<div class="col-md-2" *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+				<div *ngIf="f.priority.errors.required">Choose priority</div>
+			</div>
 		</mat-form-field>
+		<!-- <div id="fileInput">
+			<input type="file" class="file-select" (change)="onFileChange($event)" id="fileInput">
+		</div> -->
 	</div>
-	<div mat-dialog-actions>
-		<button mat-flat-button color="accent" mat-raised-button matDialogClose>Cancel</button>
-		<button mat-flat-button  color="primary" type="submit" id="save_changes" (click)="addTask(addTaskForm.value)">Add Task</button>
+	<div mat-dialog-actions style="text-align: center;" >
+		<button mat-flat-button mat-raised-button matDialogClose style="margin-right: 8px;">Cancel</button>
+		<button mat-flat-button type="submit" mat-flat-button  id="save_changes" (click)="addTask(addTaskForm.value)" routerLink="/display-data"  [disabled] = " addTaskForm.invalid" style=" color: white; background-color: #ff4081">Add Task</button>
 	</div>
 </div>
+

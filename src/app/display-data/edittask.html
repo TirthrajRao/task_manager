@@ -1,0 +1,30 @@
+<h1 mat-dialog-title style="text-align: center;">Edit Task</h1>
+<div class="Content_modal">
+	<div mat-dialog-content [formGroup]="editTaskForm" id="#edittask">
+		<mat-form-field class="example-full-width" >
+			<input matInput placeholder="Title" type="text" id="title" formControlName="title" [(ngModel)]="data.task.title">
+		</mat-form-field>
+		<mat-form-field class="example-full-width">
+			<textarea matInput id="desc" formControlName="desc"  placeholder="Description" [(ngModel)]="data.task.desc" style="resize: none;"></textarea>
+		</mat-form-field>
+		<mat-form-field class="example-full-width">
+			<mat-label>Priority</mat-label>
+			<mat-select [(value)]="selected" formControlName="priority" [(ngModel)]="data.task.priority">
+				<mat-option>None</mat-option>
+				<mat-option value="Highest">Highest</mat-option>
+				<mat-option value="High">High</mat-option>
+				<mat-option value="Medium">Medium</mat-option>
+				<mat-option value="Low">Low</mat-option>
+			</mat-select>
+		</mat-form-field>
+	<!-- 	<mat-form-field class="example-full-width">
+			<input matInput [(ngModel)]="data.date" formControlName="date" placeholder="Enter Due date" [matDatepicker]="picker1" >
+			<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+			<mat-datepicker #picker1></mat-datepicker>
+		</mat-form-field> -->
+	</div>
+	<div mat-dialog-actions>
+		<button mat-flat-button  mat-raised-button matDialogClose style="margin-right: 8px;">Cancel</button>
+		<button mat-flat-button  color="primary" type="submit" id="save_changes" (click)="editTask(data)"  [disabled] =" editTaskForm.invalid" style="background-color: black; color: white;">Save Changes</button>
+	</div>
+</div>

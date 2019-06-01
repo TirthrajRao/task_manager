@@ -51,7 +51,6 @@ export class AuthService {
 		return this.currentUserSubject.value;
 	}
 
-
 	setLoggedIn(value: boolean){
 		localStorage.setItem('loggedIn','true')
 	}
@@ -77,19 +76,18 @@ export class AuthService {
 			new firebase.auth.GoogleAuthProvider()
 			)
 	}
-	isLoggedIn() {
-		if (this.userDetails == null ) {
-			return false;
-		} else {
-			return true;
-		}
-
+	
+	signOut() {
+		return this._firebaseAuth.auth.signOut().then(() => {
+			this.router.navigate(['/login']);
+		})
 	}
 
-	// signOut() {
-		// 	this._firebaseAuth.auth.signOut()
-		// 	.then((res) => this.router.navigate(['/']));
-		// }
-
+	isLoggedIn(): boolean {
+		console.log(!!this._firebaseAuth.auth.currentUser);
+		return !!this._firebaseAuth.auth.currentUser;
 	}
+
+}
+
 

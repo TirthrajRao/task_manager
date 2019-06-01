@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
 
 	showSpinner = localStorage.getItem('showSpinner') === 'true' ? true : false;
 	loginForm : FormGroup;
-	userDetails ;
+	currentUser ;
+	
 	constructor(public auth: AuthService,
 		private router: Router, private _firebaseAuth: AngularFireAuth) {
 		this.loginForm = new FormGroup({
@@ -33,15 +34,16 @@ export class LoginComponent implements OnInit {
 		console.log(form);
 		firebase.auth().signInWithEmailAndPassword(form.email, form.password).then((res)=>{
 			console.log("reeessssssss====>",res);
-			this.userDetails = res;
-			alert("login sucessfully")
-			localStorage.setItem('userDetails', JSON.stringify(this.userDetails));
-			this.router.navigate(['display-data'])
+			this.currentUser = res;
+			alert("Login sucessfully")
+			localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
+			this.router.navigate(['/display-data'])
 		}).catch(function(error) {
 			var errorCode = error.code;
 			var errorMessage = error.message;
-			alert("first u have to sign in")
-
+			console.log("error code===>", errorCode);
+			console.log("error code===>", errorMessage);
+			alert( ErroAuthEn.convertMessage(error['code']));
 		});
 
 	}
@@ -49,19 +51,46 @@ export class LoginComponent implements OnInit {
 		console.log("hiiiiiiiiiiiiiiiiiiiiiii");
 		this.auth.signInWithFacebook()
 		.then((res) => { 
-
+			window.location.reload();
 			console.log("resssssssssss",res);
-			this.router.navigate(['display-data'])
+			
+			this.router.navigate(['/display-data'])
 		})
 		.catch((err) => console.log(err));
 	}
 	signInWithGoogle() {
 		this.auth.signInWithGoogle()
 		.then((res) => { 
+			window.location.reload();
 			console.log("hiiiiiiiiiiiiiiiiiiiiiii");
 			console.log("resssssssssss",res);
-			this.router.navigate(['display-data'])
+			
+			
+			
+			this.router.navigate(['/display-data'])
 		})
 		.catch((err) => console.log(err));
+	}
+}
+
+export namespace ErroAuthEn {
+	export function convertMessage(code: string): string {
+		console.log('called');
+		switch (code) {
+			case 'auth/user-disabled': {
+				return 'Sorry your user is disabled.';
+			}
+			case 'auth/user-not-found': {
+				return 'Sorry user not found.';
+			}
+
+			case 'auth/wrong-password': {
+				return 'The password is invalid or the user does not have a password.';
+			}
+
+			default: {
+				return 'Please enter username and password.';
+			}
+		}
 	}
 }
